@@ -72,6 +72,8 @@ public class AuthController {
 
             return ResponseEntity.ok(new LoginResponse(userDTO, token));
         } catch (AuthenticationException e) {
+            System.out.println("AUTH ERROR: " + e.getMessage());
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }

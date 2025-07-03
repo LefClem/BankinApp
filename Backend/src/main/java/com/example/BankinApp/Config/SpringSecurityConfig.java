@@ -1,8 +1,5 @@
 package com.example.BankinApp.Config;
 
-import java.util.List;
-import java.util.Optional;
-
 import javax.crypto.spec.SecretKeySpec;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -24,12 +21,8 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.example.BankinApp.Entity.CustomUserDetails;
-import com.example.BankinApp.Entity.User;
 import com.example.BankinApp.Repository.UserRepository;
 import com.nimbusds.jose.jwk.source.ImmutableSecret;
 
@@ -42,7 +35,7 @@ public class SpringSecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**")
+                        .requestMatchers(new AntPathRequestMatcher("/api/auth/**"))
                         .permitAll()
                         .anyRequest().authenticated())
                 .oauth2ResourceServer((oauth2) -> oauth2.jwt(Customizer.withDefaults()))
@@ -77,13 +70,9 @@ public class SpringSecurityConfig {
     @Bean
     public UserDetailsService userDetailsService(UserRepository userRepository) {
         return email -> {
-            Optional<User> userOpt = userRepository.findByEmail(email);
-            if (userOpt.isEmpty()) {
-                System.out.println("UserDetailsService : User not found with email " + email);
-                throw new UsernameNotFoundException("User not found with email " + email);
-            }
-            System.out.println("UserDetailsService : User found: " + userOpt.get());
-            return new CustomUserDetails(userOpt.get());
+            return (UserDetails) userRepository.findByEmail(email)
+                    .map(CustomUserDetails::new)
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found with email " + email));
         };
     }
 
