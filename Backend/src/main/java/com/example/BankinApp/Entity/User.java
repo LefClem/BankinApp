@@ -1,6 +1,7 @@
 package com.example.BankinApp.Entity;
 
 import com.example.BankinApp.Enum.Role;
+import com.example.BankinApp.validators.ValidPassword;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -27,6 +28,7 @@ public class User {
     private String email;
 
     @Column
+    @ValidPassword
     private String password;
 
     @Enumerated(EnumType.STRING)
