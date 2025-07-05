@@ -1,5 +1,6 @@
 package com.example.BankinApp.payload.request;
 
+import com.example.BankinApp.validators.ValidPassword;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

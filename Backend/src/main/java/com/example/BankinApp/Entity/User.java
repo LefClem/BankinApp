@@ -28,7 +28,6 @@ public class User {
     private String email;
 
     @Column
-    @ValidPassword
     private String password;
 
     @Enumerated(EnumType.STRING)
