@@ -1,5 +1,7 @@
 package com.example.BankinApp.Entity;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,4 +25,7 @@ public class Account {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "account")
+    private List<Transaction> transactions;
 }
