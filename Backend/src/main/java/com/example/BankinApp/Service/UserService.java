@@ -8,10 +8,6 @@ import com.example.BankinApp.Repository.UserRepository;
 import com.example.BankinApp.payload.request.RegisterRequest;
 import com.example.BankinApp.payload.response.MessageResponse;
 
-// import com.example.BankinApp.Exception.ResourceNotFoundException;
-// import com.example.BankinApp.Mapper.UserMapper;
-// import com.example.BankinApp.Payload.MessageResponse;
-// import com.example.BankinApp.Payload.RegisterRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +16,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
 import java.util.Optional;
 
 @Service
