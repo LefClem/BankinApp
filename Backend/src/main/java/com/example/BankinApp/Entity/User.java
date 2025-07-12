@@ -1,8 +1,8 @@
 package com.example.BankinApp.Entity;
 
-import com.example.BankinApp.Enum.Role;
-import com.example.BankinApp.validators.ValidPassword;
+import java.util.Date;
 
+import com.example.BankinApp.Enum.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,8 +28,13 @@ public class User {
     private String email;
 
     @Column
-    @ValidPassword
     private String password;
+
+    @Column
+    private Date created_at;
+
+    @Column
+    private Date updated_at;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

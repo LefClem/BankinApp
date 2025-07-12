@@ -7,7 +7,6 @@ import com.example.BankinApp.Mapper.UserMapper;
 import com.example.BankinApp.Repository.UserRepository;
 import com.example.BankinApp.payload.request.RegisterRequest;
 import com.example.BankinApp.payload.response.MessageResponse;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +38,8 @@ public class UserService {
                 .lastName(registerRequest.getLastName())
                 .email(registerRequest.getEmail())
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
+                .created_at(new java.util.Date())
+                .updated_at(new java.util.Date())
                 .role(Role.USER)
                 .build();
 
